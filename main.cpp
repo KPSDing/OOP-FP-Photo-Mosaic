@@ -8,9 +8,10 @@
 int main(int argc, char *argv[]) {
   Image *img1 = new GrayImage();
   img1->LoadImage("Image-Folder/mnist/img_100.jpg");
-  img1->DumpImage("img1.jpg");
-  img1->Display_X_Server();
-  img1->Display_CMD();
+  img1->DumpImage("img1.jpg"); // output picture to *jpg/*png。
+  img1->Display_X_Server(); // Display_X_Server in moba_xterm
+  img1->Display_ASCII(); // print on terminal based on ASCII
+  img1->Display_CMD(); // print on terminal directory
 
   if (RGB) {
     Image *img2 = new RGBImage();
