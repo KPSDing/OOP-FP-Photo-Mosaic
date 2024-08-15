@@ -18,11 +18,11 @@ public:
     int get_h();
     
     //Pure virtual function(let derived class override, all public):
-    bool LoadImage(string filename);
-    void DumpImage(string filename);
-    void Display_X_Server();
-    void Display_ASCII();
-    void Display_CMD();
+    virtual bool LoadImage(string filename);
+    virtual void DumpImage(string filename);
+    virtual void Display_X_Server();
+    virtual void Display_ASCII();
+    virtual void Display_CMD();
 
 };
 

@@ -1,24 +1,37 @@
 {
-  "version": "0.2.0",
-  "configurations": [
-    {
-      "name": "C/C++ Runner: Debug Session",
-      "type": "cppdbg",
-      "request": "launch",
-      "args": [],
-      "stopAtEntry": false,
-      "externalConsole": false,
-      "cwd": "/edahome/msedalab/313510164/OOP-FP-Photo-Mosaic",
-      "program": "/edahome/msedalab/313510164/OOP-FP-Photo-Mosaic/build/Debug/outDebug",
-      "MIMode": "gdb",
-      "miDebuggerPath": "gdb",
-      "setupCommands": [
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "name": "(gdb) Launch",
+        "type": "cppdbg",  // 指定 C++ debug
+        "request": "launch",
+        "program": "${workspaceFolder}/Data_Loader_Example",  // 指定程式執行路徑，**這邊指向的目標需要與前面 compile task 產生的執行檔相同**
+        "args": [  // 程式的參數，結合前面的選項在 command line 裡面應該會長這樣: ${workspaceFolder}/311510158/Lab4 Case/Deutsch_difficult.txt output.txt
+        //   "${workspaceFolder}/testcase/case0.txt",
+        //   "output.txt"
+        ],
+        "stopAtEntry": false,
+        "cwd": "${workspaceFolder}",  // 程式執行的路徑
+        "environment": [],
+        "externalConsole": false,
+        "internalConsoleOptions": "neverOpen",
+        "MIMode": "gdb",
+        "miDebuggerPath": "/usr/bin/gdb",  // gdb 的路徑，有可能需要手動重新設定
+        "setupCommands": [  // gdb 的選項
         {
-          "description": "Enable pretty-printing for gdb",
-          "text": "-enable-pretty-printing",
-          "ignoreFailures": true
-        }
-      ]
-    }
-  ]
-}
+            "description": "Test",
+            "text": "python import sys;sys.path.insert(0, '/uhome/home/tommy25582143/python');from libstdcxx.v6.printers import register_libstdcxx_printers;register_libstdcxx_printers(None)",
+            "ignoreFailures": false
+        },              
+        {
+            "description": "Enable pretty-printing for gdb",
+            "text": "-enable-pretty-printing",
+            "ignoreFailures": true
+          }
+        ],
+        "preLaunchTask": "Compile"  // 在執行程式之前需要執行的任務，此處需要跟 tasks.json 裡面設定的編譯任務名稱相同
+      }
+    ]
+  }
+
+ 

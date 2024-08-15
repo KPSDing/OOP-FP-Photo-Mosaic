@@ -1,0 +1,21 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Compile",  // task 的名稱，可能會在 launch.json 裡面 preLaunchTask 用到
+            "command": "make",  // 編譯的指令
+            "args": [],  // 編譯的參數，因為 make 比較不需要下額外的參數，所以設定為空，但還是需要依照實際狀況做調整
+            "type": "shell",
+            "group": "build",
+            "options": {
+                "cwd": "${workspaceFolder}"  // 編譯的路徑，前面 ${workspaceFolder} 是 VSCode 內部的變數，代表 workspace 的資料夾。後面的路徑可能要按照不同 Project 做一些調整，此處因為 Makefile 檔案在 311510158 這個資料夾內，所以需要進入那個資料夾
+            },
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            }
+        },
+    ]
+}
