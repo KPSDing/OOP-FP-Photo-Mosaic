@@ -10,7 +10,7 @@
           "${workspaceFolder}/testcase/case0.txt",
           "output.txt"
         ],
-        "stopAtEntry": false,
+        "stopAtEntry": true,
         "cwd": "${workspaceFolder}",  // 程式執行的路徑
         "environment": [],
         "externalConsole": false,
