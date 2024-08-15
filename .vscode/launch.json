@@ -5,10 +5,10 @@
         "name": "(gdb) Launch",
         "type": "cppdbg",  // 指定 C++ debug
         "request": "launch",
-        "program": "${workspaceFolder}/Data_Loader_Example",  // 指定程式執行路徑，**這邊指向的目標需要與前面 compile task 產生的執行檔相同**
+        "program": "${workspaceFolder}/Image_Processing",  // 指定程式執行路徑，**這邊指向的目標需要與前面 compile task 產生的執行檔相同**
         "args": [  // 程式的參數，結合前面的選項在 command line 裡面應該會長這樣: ${workspaceFolder}/311510158/Lab4 Case/Deutsch_difficult.txt output.txt
-        //   "${workspaceFolder}/testcase/case0.txt",
-        //   "output.txt"
+          "${workspaceFolder}/testcase/case0.txt",
+          "output.txt"
         ],
         "stopAtEntry": false,
         "cwd": "${workspaceFolder}",  // 程式執行的路徑
@@ -20,7 +20,7 @@
         "setupCommands": [  // gdb 的選項
         {
             "description": "Test",
-            "text": "python import sys;sys.path.insert(0, '/uhome/home/tommy25582143/python');from libstdcxx.v6.printers import register_libstdcxx_printers;register_libstdcxx_printers(None)",
+            "text": "python import sys;sys.path.insert(0, '/edahome/msedalab/313510164/python');from libstdcxx.v6.printers import register_libstdcxx_printers;register_libstdcxx_printers(None)",
             "ignoreFailures": false
         },              
         {
