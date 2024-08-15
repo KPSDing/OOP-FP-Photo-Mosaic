@@ -1,6 +1,6 @@
 #include "image.h"
 
-Image::Image(int width, int height) : w(width), h(height) {}
+Image::Image(int width, int height) : w(width), h(height) {} // initialization of picture width and height
 
 Image::~Image() {
   // cout << "~Image()\n";
