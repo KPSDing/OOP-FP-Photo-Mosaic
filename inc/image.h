@@ -12,7 +12,7 @@ protected:
 public:
     //Constructor/Destructor
     Image(int width, int height);
-    ~Image();
+    virtual ~Image();
 
     int get_w();
     int get_h();
@@ -23,7 +23,6 @@ public:
     virtual void Display_X_Server();
     virtual void Display_ASCII();
     virtual void Display_CMD();
-
 };
 
 #endif
