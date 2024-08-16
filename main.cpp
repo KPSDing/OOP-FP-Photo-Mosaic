@@ -37,18 +37,17 @@ int main(int argc, char *argv[]) {
   // Contrast_Stretching
   Image *img3 = new GrayImage();
   img3->LoadImage("img/str.jpg");
-  img3->Display_CMD();
+  img3->DumpImage("img3.jpg");
   loadCase(img3, CONTRAST_STRETCH);
-  img3->Display_CMD();
+  img3->DumpImage("img3_after.jpg");
 
 
   // Mosaic_Filter
   Image *img4 = new GrayImage();
   img4->LoadImage("img/love.jpeg");
   img4->DumpImage("img4.jpg");
-  img4->Display_CMD();
   loadCase(img4, MOSAIC_FILTER);
-  img4->Display_CMD();
+  img4->DumpImage("img4_after.jpg");
 
   // some photo mosaic driven code here
 
