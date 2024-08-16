@@ -3,6 +3,7 @@
 #include "image.h"
 #include "photo_mosaic.h"
 #include "rgb_image.h"
+#include <cmath>
 
 #define ENABLE_X_SERVER true
 #define STEP2 false
@@ -31,33 +32,18 @@ int main(int argc, char *argv[]) {
 
   // some bit field filter design driven code here
 
-  // Box Filter
-  Image *img3 = new RGBImage();
-  img3->LoadImage("Image-Folder/lena.jpg");
-  img3->DumpImage("img3.jpg");
-  loadCase(img3, BOX_FILTER);
-  img3->DumpImage("img3_after.jpg");
+  for (int i = 3; i < 7; i++) {
+    Image *img = new RGBImage();
+    string name = "img/" + to_string(i);
+    string out = to_string(i);
 
-  // Sobel Gradient
-  Image *img4 = new RGBImage();
-  img4->LoadImage("img/lose.jpg");
-  img4->DumpImage("img4.jpg");
-  loadCase(img4, SOBEL_GRADIENT);
-  img4->DumpImage("img4_after.jpg");
-
-    // Contrast_Stretching
-  Image *img5 = new RGBImage();
-  img5->LoadImage("img/str.jpg");
-  img5->DumpImage("img5.jpg");
-  loadCase(img5, CONTRAST_STRETCH);
-  img5->DumpImage("img5_after.jpg");
-
-  // Mosaic_Filter
-  Image *img6 = new RGBImage();
-  img6->LoadImage("img/good.jpg");
-  img6->DumpImage("img6.jpg");
-  loadCase(img6, MOSAIC_FILTER);
-  img6->DumpImage("img6_after.jpg");
+    img->LoadImage(name + ".jpg");
+    img->DumpImage(out + "_ori.jpg");
+    int8_t option = 1 << (i-3);  // Use bit shift instead of pow(2, i)
+    loadCase(img, option); 
+    img->DumpImage(out + ".jpg"); 
+    delete img; // free memory
+  }
 
   // some photo mosaic driven code here
 

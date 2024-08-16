@@ -6,6 +6,12 @@ RGBImage::RGBImage() : Image(0, 0), pixels(NULL) {
   // Initialize pixels = NULL
 }
 
+RGBImage::RGBImage(int width, int height)
+    : Image(width, height){
+  // Assign Image w=width, h=height
+}
+
+
 RGBImage::RGBImage(int width, int height, int ***pixels)
     : Image(width, height), pixels(pixels) {
   // Assign Image w=width, h=height
@@ -274,10 +280,10 @@ void RGBImage::Apply_Contrast_Stretching() {
 void RGBImage::Apply_Mosaic_Filter() {
   cout << "Applying RGB Mosaic Filter" << endl;
   int blockSize = 10;
-  cout << "Enter a blockSize (between 3 and 10): ";
+  cout << "Enter a blockSize (between 2 and 6): ";
   cin >> blockSize;
-  while (blockSize < 3 || blockSize > 10) {
-    cout << "Invalid input. Please enter a value between 3 and 10: ";
+  while (blockSize < 2 || blockSize > 6) {
+    cout << "Invalid input. Please enter a value between 2 and 6: ";
     cin >> blockSize;
   }
 

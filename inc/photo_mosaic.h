@@ -11,7 +11,7 @@ private:
 
 public:
   PhotoMosaic();
-  PhotoMosaic(int width, int height, int ***pixels);
+  PhotoMosaic(int width, int height);
   ~PhotoMosaic();
   void Parting_Photo();
 };

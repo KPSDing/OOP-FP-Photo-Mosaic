@@ -9,7 +9,7 @@
 #define BLUE 2
 
 class RGBImage : public Image {
-private:
+protected:
   int ***pixels;
   const int box_fliter_kernel[9] = {1, 1, 1, 1, 1, 1, 1, 1, 1};
 
@@ -18,6 +18,7 @@ public:
 
   // Constructor/Destructor
   RGBImage();
+  RGBImage(int width, int height);
   RGBImage(int width, int height, int ***pixels);
   ~RGBImage();
 

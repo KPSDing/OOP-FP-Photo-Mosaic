@@ -8,15 +8,13 @@ GrayImage::GrayImage(int width, int height, int **pixels)
 GrayImage::~GrayImage() {
     // Free memory for pixels
     if (pixels) {
-        for (int i=0; i<h; i++) {
-            for (int j=0; j<w; j++) {
-                delete[] pixels[i][j];
-            }
-            delete[] pixels[i];
+        for (int i = 0; i < this->h; i++) {
+            delete[] pixels[i];  // every line
         }
         delete[] pixels;
     }
 }
+
 
 bool GrayImage::LoadImage(string filename) {
   this->pixels =
@@ -184,10 +182,10 @@ void GrayImage::Apply_Contrast_Stretching() {
 void GrayImage::Apply_Mosaic_Filter() {
   cout << "Applying Gray Mosaic Filter" << endl;
   int blockSize = 10;
-  cout << "Enter a blockSize (between 3 and 10): ";
+  cout << "Enter a blockSize (between 2 and 6): ";
   cin >> blockSize;
-  while (blockSize < 3 || blockSize > 10) {
-    cout << "Invalid input. Please enter a value between 3 and 10: ";
+  while (blockSize < 2 || blockSize > 6) {
+    cout << "Invalid input. Please enter a value between 2 and 6: ";
     cin >> blockSize;
   }
 
