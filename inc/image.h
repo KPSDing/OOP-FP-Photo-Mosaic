@@ -28,7 +28,8 @@ public:
   virtual void Display_CMD();
 
   //Image filter design
-  
+  virtual void Apply_Contrast_Stretching();
+  virtual void Apply_Mosaic_Filter();
 };
 
 #endif
