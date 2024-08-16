@@ -3,6 +3,8 @@
 
 #include "image.h"
 
+#include <string>
+
 class GrayImage : public Image {
 private:
   int **pixels;
@@ -22,7 +24,9 @@ public:
   void Display_ASCII() override;
   void Display_CMD() override;
 
-    //Image filter design
+  //Image filter design
+  void Apply_Box_Filter() override;
+  void Apply_Sobel_Gradient() override;
   void Apply_Contrast_Stretching() override;
   void Apply_Mosaic_Filter() override;
 };
