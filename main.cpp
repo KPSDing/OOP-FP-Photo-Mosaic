@@ -5,7 +5,7 @@
 #include "rgb_image.h"
 
 #define ENABLE_X_SERVER true
-#define STEP2 true
+#define STEP2 false
 
 int main(int argc, char *argv[]) {
 
@@ -31,19 +31,33 @@ int main(int argc, char *argv[]) {
 
   // some bit field filter design driven code here
 
-  // Contrast_Stretching
-  Image *img3 = new GrayImage();
-  img3->LoadImage("img/mygo.jpg");
+  // Box Filter
+  Image *img3 = new RGBImage();
+  img3->LoadImage("Image-Folder/lena.jpg");
   img3->DumpImage("img3.jpg");
-  loadCase(img3, CONTRAST_STRETCH);
+  loadCase(img3, BOX_FILTER);
   img3->DumpImage("img3_after.jpg");
 
-  // Mosaic_Filter
-  Image *img4 = new GrayImage();
-  img4->LoadImage("img/mygo.jpg");
+  // Sobel Gradient
+  Image *img4 = new RGBImage();
+  img4->LoadImage("img/lose.jpg");
   img4->DumpImage("img4.jpg");
-  loadCase(img4, MOSAIC_FILTER);
+  loadCase(img4, SOBEL_GRADIENT);
   img4->DumpImage("img4_after.jpg");
+
+    // Contrast_Stretching
+  Image *img5 = new RGBImage();
+  img5->LoadImage("img/str.jpg");
+  img5->DumpImage("img5.jpg");
+  loadCase(img5, CONTRAST_STRETCH);
+  img5->DumpImage("img5_after.jpg");
+
+  // Mosaic_Filter
+  Image *img6 = new RGBImage();
+  img6->LoadImage("img/good.jpg");
+  img6->DumpImage("img6.jpg");
+  loadCase(img6, MOSAIC_FILTER);
+  img6->DumpImage("img6_after.jpg");
 
   // some photo mosaic driven code here
 
