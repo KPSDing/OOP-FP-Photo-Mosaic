@@ -19,7 +19,7 @@ int main(int argc, char *argv[]) {
     }
     img1->Display_ASCII(); // print on terminal based on ASCII
     img1->Display_CMD();   // print on terminal directory
-
+  
     Image *img2 = new RGBImage();
     img2->LoadImage("Image-Folder/lena.jpg");
     img2->DumpImage("img2.jpg");

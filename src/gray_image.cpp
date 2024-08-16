@@ -182,12 +182,8 @@ void GrayImage::Apply_Contrast_Stretching() {
 void GrayImage::Apply_Mosaic_Filter() {
   cout << "Applying Gray Mosaic Filter" << endl;
   int blockSize = 10;
-  cout << "Enter a blockSize (between 2 and 6): ";
+  cout << "Enter a blockSize: ";
   cin >> blockSize;
-  while (blockSize < 2 || blockSize > 6) {
-    cout << "Invalid input. Please enter a value between 2 and 6: ";
-    cin >> blockSize;
-  }
 
   for(int i = 0; i < this->h; i += blockSize){
     for(int j = 0; j < this->w; j += blockSize){
@@ -202,7 +198,8 @@ void GrayImage::Apply_Mosaic_Filter() {
       double avg = sum/count; // find the avg pixels in the blockSize
       for(int ii = 0; ii < blockSize; ii++){
         for(int jj = 0; jj < blockSize; jj++){
-          pixels[i+ii][j+jj] = avg;
+          if (i + ii < this->h && j + jj < this->w) {
+            pixels[i+ii][j+jj] = avg;}
         }
       }
     }

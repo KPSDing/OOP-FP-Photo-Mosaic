@@ -6,3 +6,4 @@ obj/*.d
 Image_Processing
 .vscode
 .nfs*
+*.tar.xz
