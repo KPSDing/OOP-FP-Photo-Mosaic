@@ -3,10 +3,12 @@
 
 #include "rgb_image.h"
 
-class PhotoMosaic : public RGBImage{
+class PhotoMosaic : public RGBImage {
 
-	public:
-		PhotoMosaic();
+public:
+  PhotoMosaic();
+  PhotoMosaic(int width, int height, int ***pixels);
+  ~PhotoMosaic();
 };
 
 #endif

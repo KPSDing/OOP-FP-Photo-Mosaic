@@ -5,7 +5,18 @@ GrayImage::GrayImage() : Image(0, 0), pixels(nullptr) {}
 GrayImage::GrayImage(int width, int height, int **pixels)
     : Image(width, height), pixels(pixels) {}
 
-GrayImage::~GrayImage() {}
+GrayImage::~GrayImage() {
+    // Free memory for pixels
+    if (pixels) {
+        for (int i=0; i<h; i++) {
+            for (int j=0; j<w; j++) {
+                delete[] pixels[i][j];
+            }
+            delete[] pixels[i];
+        }
+        delete[] pixels;
+    }
+}
 
 bool GrayImage::LoadImage(string filename) {
   this->pixels =
