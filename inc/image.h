@@ -26,6 +26,9 @@ public:
   virtual void Display_X_Server();
   virtual void Display_ASCII();
   virtual void Display_CMD();
+
+  //Image filter design
+  
 };
 
 #endif
