@@ -1,8 +1,12 @@
 #ifndef _PHOTO_MOSAIC_H_
 #define _PHOTO_MOSAIC_H_
 
-class PhotoMosaic{
+#include "rgb_image.h"
 
+class PhotoMosaic : public RGBImage{
+
+	public:
+		PhotoMosaic();
 };
 
 #endif

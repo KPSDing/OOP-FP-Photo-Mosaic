@@ -3,9 +3,9 @@
 #include "image.h"
 #include "photo_mosaic.h"
 #include "rgb_image.h"
-#define RGB false
+
 #define ENABLE_X_SERVER true
-#define STEP2 false
+#define STEP2 true
 
 int main(int argc, char *argv[]) {
 
@@ -19,32 +19,28 @@ int main(int argc, char *argv[]) {
     img1->Display_ASCII(); // print on terminal based on ASCII
     img1->Display_CMD();   // print on terminal directory
 
-    if (RGB) {
-      Image *img2 = new RGBImage();
-      img2->LoadImage("Image-Folder/lena.jpg");
-      img2->DumpImage("img2.jpg");
-      if (ENABLE_X_SERVER) {
-        img2->Display_X_Server(); // Display_X_Server in moba_xterm
-      }
-      img2->Display_ASCII();
-      img2->Display_CMD();
+    Image *img2 = new RGBImage();
+    img2->LoadImage("Image-Folder/lena.jpg");
+    img2->DumpImage("img2.jpg");
+    if (ENABLE_X_SERVER) {
+      img2->Display_X_Server(); // Display_X_Server in moba_xterm
     }
+    img2->Display_ASCII();
+    img2->Display_CMD();
   }
 
   // some bit field filter design driven code here
 
-
   // Contrast_Stretching
   Image *img3 = new GrayImage();
-  img3->LoadImage("img/str.jpg");
+  img3->LoadImage("img/mygo.jpg");
   img3->DumpImage("img3.jpg");
   loadCase(img3, CONTRAST_STRETCH);
   img3->DumpImage("img3_after.jpg");
 
-
   // Mosaic_Filter
   Image *img4 = new GrayImage();
-  img4->LoadImage("img/love.jpeg");
+  img4->LoadImage("img/mygo.jpg");
   img4->DumpImage("img4.jpg");
   loadCase(img4, MOSAIC_FILTER);
   img4->DumpImage("img4_after.jpg");
