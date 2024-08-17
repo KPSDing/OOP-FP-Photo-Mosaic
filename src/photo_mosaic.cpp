@@ -23,12 +23,14 @@ void PhotoMosaic::CreateRGBImageLibrary(){
 
 void PhotoMosaic::CreateRGBPhotoMosaic(const string targetImagePath, const string& outputFilename){
     Image *targetImgData = new RGBImage();
+    cout << "targetImagePath: " << targetImagePath << endl;
     targetImgData->LoadImage(targetImagePath);
-    
+
     int targetWidth = targetImgData->get_w();
     int targetHeight = targetImgData->get_h();
 
     RGBImage mosaicImage(targetWidth, targetHeight, nullptr);
+    
     int*** targetPixels = dynamic_cast<RGBImage*>(targetImgData)->getPixels();
 
     for (int i = 0; i < targetHeight; i += blockSize) {
@@ -64,6 +66,7 @@ void PhotoMosaic::CreateRGBPhotoMosaic(const string targetImagePath, const strin
 
             for (vector<string>::size_type k = 0; k < imagepathLibrary.size(); k++) {
                 Image *findbestsmallimage = new RGBImage();
+                cout << "Load: " << imagepathLibrary[k] << endl;
                 findbestsmallimage->LoadImage(imagepathLibrary[k]);
                 int*** smallimagePixels = dynamic_cast<RGBImage*>(findbestsmallimage)->getPixels();
 
