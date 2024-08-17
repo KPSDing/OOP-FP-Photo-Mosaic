@@ -256,3 +256,57 @@ void RGBImage::Apply_Sobel_Gradient(){
     delete[] edge_b;
     delete[] edge;
 }
+
+void RGBImage::Apply_Contrast_Stretching() {
+  cout << "Applying RGB Contrast Stretching Filter" << endl;
+  static int minVal = 255, maxVal = 0;
+  for (int k = 0; k < 3; ++k) {
+    for (int i = 0; i < this->h; ++i) { // triverse all pixels in the picture
+      for (int j = 0; j < this->w; ++j) {
+        if (pixels[i][j][k] < minVal)
+          minVal = pixels[i][j][k]; // find min pixel
+        if (pixels[i][j][k] > maxVal)
+          maxVal = pixels[i][j][k]; // find max pixel
+      }
+    }
+
+    for (int i = 0; i < this->h; ++i) {
+      for (int j = 0; j < this->w; ++j) {
+        pixels[i][j][k] = 255 * (pixels[i][j][k] - minVal) /
+                          (maxVal - minVal); // refresh pixels
+      }
+    }
+  }
+}
+
+void RGBImage::Apply_Mosaic_Filter() {
+  cout << "Applying RGB Mosaic Filter" << endl;
+  int blockSize = 10;
+  cout << "Enter a blockSize (between 3 and 10): ";
+  cin >> blockSize;
+  while (blockSize < 3 || blockSize > 10) {
+    cout << "Invalid input. Please enter a value between 3 and 10: ";
+    cin >> blockSize;
+  }
+
+  for (int k = 0; k < 3; k++) {
+    for (int i = 0; i < this->h; i += blockSize) {
+      for (int j = 0; j < this->w; j += blockSize) {
+        int sum = 0;
+        int count = 0;
+        for (int ii = 0; ii < blockSize; ii++) {
+          for (int jj = 0; jj < blockSize; jj++) {
+            sum += pixels[i + ii][j + jj][k]; // sum all pixels in the blockSize
+            count++;
+          }
+        }
+        double avg = sum / count; // find the avg pixels in the blockSize
+        for (int ii = 0; ii < blockSize; ii++) {
+          for (int jj = 0; jj < blockSize; jj++) {
+            pixels[i + ii][j + jj][k] = avg;
+          }
+        }
+      }
+    }
+  }
+}
