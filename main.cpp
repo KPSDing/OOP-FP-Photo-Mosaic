@@ -38,10 +38,10 @@ int main(int argc, char *argv[]) {
     string out = to_string(i);
 
     img->LoadImage(name + ".jpg");
-    img->DumpImage(out + "_ori.jpg");
+    img->DumpImage("out/" + out + "_ori.jpg");
     int8_t option = 1 << (i-3);  // Use bit shift instead of pow(2, i)
     loadCase(img, option); 
-    img->DumpImage(out + ".jpg"); 
+    img->DumpImage("out/" + out + ".jpg"); 
     delete img; // free memory
   }
 
