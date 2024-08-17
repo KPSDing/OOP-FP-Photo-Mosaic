@@ -4,7 +4,8 @@
 #include <string>
 #include <iostream>
 #include <vector> 
-#include <boost/filesystem.hpp>
+#include <limits>
+
 #include "image.h"
 #include "rgb_image.h"
 
@@ -20,6 +21,7 @@ private:
     double colorDistance(const int, const int, const int, const int, const int , const int);
     // 添加圖像庫中的圖像
     void CreateRGBImageLibrary();
+    Data_Loader data_loader;
 
 public:
     // Constructor/Destructor

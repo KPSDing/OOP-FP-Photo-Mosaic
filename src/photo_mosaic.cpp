@@ -18,20 +18,7 @@ double PhotoMosaic::colorDistance(const int tragetred, const int tragetgreen, co
 void PhotoMosaic::CreateRGBImageLibrary(){
     string folderPath = "./Image-Folder/cifar10";  // CIFAR-10 圖像文件夾路徑
     // 遍歷資料夾中的每個文件
-    for (const auto& entry : boost::filesystem::directory_iterator(folderPath)) {
-        if (boost::filesystem::is_regular_file(entry.path())) {
-            string filePath = entry.path().string();
-            cout << "Loading image: " << filePath << endl;
-
-            Image* img = new RGBImage();  // 假設CIFAR-10圖像是RGB圖像
-            if (img->LoadImage(filePath)) {
-                imagepathLibrary.push_back(filePath);  // 將加載的圖像路徑添加到列表中
-            } else {
-                delete img;  // 如果加載失敗，釋放記憶體
-                cerr << "Failed to load image: " << filePath << std::endl;
-            }
-        }
-    }
+    data_loader.List_Directory(folderPath, imagepathLibrary);
 }
 
 void PhotoMosaic::CreateRGBPhotoMosaic(string targetImagePath, const string& outputFilename){
