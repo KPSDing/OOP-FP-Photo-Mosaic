@@ -18,10 +18,10 @@ double PhotoMosaic::colorDistance(const int tragetred, const int tragetgreen, co
 void PhotoMosaic::CreateRGBImageLibrary(){
     string folderPath = "./Image-Folder/cifar10";  // CIFAR-10 圖像文件夾路徑
     // 遍歷資料夾中的每個文件
-    for (const auto& entry : fs::directory_iterator(folderPath)) {
-        if (entry.is_regular_file()) {
+    for (const auto& entry : boost::filesystem::directory_iterator(folderPath)) {
+        if (boost::filesystem::is_regular_file(entry.path())) {
             string filePath = entry.path().string();
-            cout << "Loading image: " << filePath << std::endl;
+            cout << "Loading image: " << filePath << endl;
 
             Image* img = new RGBImage();  // 假設CIFAR-10圖像是RGB圖像
             if (img->LoadImage(filePath)) {
@@ -36,13 +36,13 @@ void PhotoMosaic::CreateRGBImageLibrary(){
 
 void PhotoMosaic::CreateRGBPhotoMosaic(string targetImagePath, const string& outputFilename){
 
-    Image *targetImgData = newRGBImage();
+    Image *targetImgData = new RGBImage();
     targetImgData->LoadImage(targetImagePath);
     
     int targetWidth = targetImgData->get_w();
     int targetHeight = targetImgData->get_h();
 
-    RGBImage mosaicImage(targetWidth, targetHeight);
+    RGBImage mosaicImage(targetWidth, targetHeight, nullptr);
 
     int*** targetPixels = dynamic_cast<RGBImage*>(targetImgData)->getPixels();
 
@@ -83,9 +83,9 @@ void PhotoMosaic::CreateRGBPhotoMosaic(string targetImagePath, const string& out
             // 找到最接近的小圖
             double minDist = numeric_limits<double>::max();
 
-            for (int k = 0; k < imagepathLibrary.size(); k++) {
+            for (vector<string>::size_type k = 0; k < imagepathLibrary.size(); k++) {
                 // 假設都是 RGB
-                Image *findbestsmallimage = newRGBImage();
+                Image *findbestsmallimage = new RGBImage();
                 findbestsmallimage->LoadImage(imagepathLibrary[k]);
 
                 int*** smallimagePixels = dynamic_cast<RGBImage*>(findbestsmallimage)->getPixels();
