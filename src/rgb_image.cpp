@@ -92,7 +92,7 @@ void RGBImage::Apply_Box_Filter(){
     // Box filter kernel (simple averaging)
     int KERNELSIZE = 3;
     // Sum of kernel elements
-    int denominator = 9; 
+    int denominator = KERNELSIZE * KERNELSIZE; 
 
     for (int i=1; i<h-1; i++) {
         for (int j=1; j<w-1; j++) {
@@ -282,12 +282,8 @@ void RGBImage::Apply_Contrast_Stretching() {
 void RGBImage::Apply_Mosaic_Filter() {
   cout << "Applying RGB Mosaic Filter" << endl;
   int blockSize = 10;
-  cout << "Enter a blockSize (between 3 and 10): ";
+  cout << "Enter a blockSize: ";
   cin >> blockSize;
-  while (blockSize < 3 || blockSize > 10) {
-    cout << "Invalid input. Please enter a value between 3 and 10: ";
-    cin >> blockSize;
-  }
 
   for (int k = 0; k < 3; k++) {
     for (int i = 0; i < this->h; i += blockSize) {
