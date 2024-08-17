@@ -16,13 +16,12 @@ double PhotoMosaic::colorDistance(const int tragetred, const int tragetgreen, co
 }
 
 void PhotoMosaic::CreateRGBImageLibrary(){
-    string folderPath = "./Image-Folder/cifar10";  // CIFAR-10 圖像文件夾路徑
+    string folderPath = "Image-Folder/cifar10";  // CIFAR-10 圖像文件夾路徑
     // 遍歷資料夾中的每個文件
     data_loader.List_Directory(folderPath, imagepathLibrary);
 }
 
-void PhotoMosaic::CreateRGBPhotoMosaic(string targetImagePath, const string& outputFilename){
-
+void PhotoMosaic::CreateRGBPhotoMosaic(const string targetImagePath, const string& outputFilename){
     Image *targetImgData = new RGBImage();
     targetImgData->LoadImage(targetImagePath);
     
@@ -30,20 +29,15 @@ void PhotoMosaic::CreateRGBPhotoMosaic(string targetImagePath, const string& out
     int targetHeight = targetImgData->get_h();
 
     RGBImage mosaicImage(targetWidth, targetHeight, nullptr);
-
     int*** targetPixels = dynamic_cast<RGBImage*>(targetImgData)->getPixels();
-
-    int*** bestsmallpixels = nullptr;
 
     for (int i = 0; i < targetHeight; i += blockSize) {
         for (int j = 0; j < targetWidth; j += blockSize) {
-            
-            // 取的block的顏色
             long long int sumR = 0, sumG = 0, sumB = 0;
             int blockHeight = blockSize;
             int blockWidth = blockSize;
 
-            for(int bi = i; bi < i + blockSize; bi++) {
+            for (int bi = i; bi < i + blockSize; bi++) {
                 if (bi >= targetHeight) {
                     blockHeight = bi - i;
                     break;
@@ -61,23 +55,18 @@ void PhotoMosaic::CreateRGBPhotoMosaic(string targetImagePath, const string& out
             }
 
             int pixelCount = blockHeight * blockWidth;
-
             int avgred   = min(255, max(0, static_cast<int>(sumR / pixelCount)));
             int avggreen = min(255, max(0, static_cast<int>(sumG / pixelCount)));
             int avgblue  = min(255, max(0, static_cast<int>(sumB / pixelCount)));
 
-
-            // 找到最接近的小圖
             double minDist = numeric_limits<double>::max();
+            int*** bestsmallpixels = nullptr;
 
             for (vector<string>::size_type k = 0; k < imagepathLibrary.size(); k++) {
-                // 假設都是 RGB
                 Image *findbestsmallimage = new RGBImage();
                 findbestsmallimage->LoadImage(imagepathLibrary[k]);
-
                 int*** smallimagePixels = dynamic_cast<RGBImage*>(findbestsmallimage)->getPixels();
 
-                // 取得小圖顏色
                 long long int smallimagesumR = 0, smallimagesumG = 0, smallimagesumB = 0;
                 int smallBlockHeight = blockSize;
                 int smallBlockWidth = blockSize;
@@ -100,25 +89,42 @@ void PhotoMosaic::CreateRGBPhotoMosaic(string targetImagePath, const string& out
                 }
 
                 int smallPixelCount = smallBlockHeight * smallBlockWidth;
-
                 int smallimageavgred   = min(255, max(0, static_cast<int>(smallimagesumR / smallPixelCount)));
                 int smallimageavggreen = min(255, max(0, static_cast<int>(smallimagesumG / smallPixelCount)));
                 int smallimageavgblue  = min(255, max(0, static_cast<int>(smallimagesumB / smallPixelCount)));
 
                 double dist = colorDistance(avgred, avggreen, avgblue, smallimageavgred, smallimageavggreen, smallimageavgblue);
-                
+
                 if (dist < minDist) {
                     minDist = dist;
                     if (bestsmallpixels) {
+                        for (int bi = 0; bi < blockSize; ++bi) {
+                            for (int bj = 0; bj < blockSize; ++bj) {
+                                delete[] bestsmallpixels[bi][bj];
+                            }
+                            delete[] bestsmallpixels[bi];
+                        }
                         delete[] bestsmallpixels;
                     }
-                    bestsmallpixels = smallimagePixels;
-                } 
+                    bestsmallpixels = new int**[blockSize];
+                    for (int bi = 0; bi < blockSize; ++bi) {
+                        bestsmallpixels[bi] = new int*[blockSize];
+                        for (int bj = 0; bj < blockSize; ++bj) {
+                            bestsmallpixels[bi][bj] = new int[3];
+                            copy(smallimagePixels[bi][bj], smallimagePixels[bi][bj] + 3, bestsmallpixels[bi][bj]);
+                        }
+                    }
+                }
+                for (int bi = 0; bi < blockSize; ++bi) {
+                    for (int bj = 0; bj < blockSize; ++bj) {
+                        delete[] smallimagePixels[bi][bj];
+                    }
+                    delete[] smallimagePixels[bi];
+                }
                 delete[] smallimagePixels;
                 delete findbestsmallimage;
             }
 
-            // 更新馬賽克圖片
             if (bestsmallpixels) {
                 for (int bi = 0; bi < blockSize; ++bi) {
                     if (i + bi >= targetHeight) break;
@@ -130,15 +136,17 @@ void PhotoMosaic::CreateRGBPhotoMosaic(string targetImagePath, const string& out
                                             bestsmallpixels[bi][bj][BLUE]);
                     }
                 }
+                for (int bi = 0; bi < blockSize; ++bi) {
+                    for (int bj = 0; bj < blockSize; ++bj) {
+                        delete[] bestsmallpixels[bi][bj];
+                    }
+                    delete[] bestsmallpixels[bi];
+                }
+                delete[] bestsmallpixels;
             }
         }
     }
 
-    // 保存馬賽克圖片
     mosaicImage.DumpImage(outputFilename);
     delete targetImgData;
-
-    if (bestsmallpixels) {
-        delete[] bestsmallpixels;
-    }
 }
