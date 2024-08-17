@@ -47,6 +47,10 @@ int main(int argc, char *argv[]) {
 
   // some photo mosaic driven code here
 
+  cout<<"Step 4: Photo mosaic"<<endl;
+  PhotoMosaic* img8 new PhotoMosaic();
+  img8->CreateRGBPhotoMosaic("Image-Folder/4k_owl.jpg", "img_after_photo_mosaic");
+
   // more ...
   return 0;
 }
