@@ -1,6 +1,4 @@
 #include "photo_mosaic.h"
-#include "stb_image.h"
-#include "stb_image_write.h"
 
 PhotoMosaic::PhotoMosaic(int blockSize) : blockSize(blockSize) {
     CreateRGBImageLibrary();
